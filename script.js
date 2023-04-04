@@ -111,7 +111,7 @@ class App {
   _loadMap(position) {
     const { latitude } = position.coords;
     const { longitude } = position.coords;
-    const coords = [36.2988797, 50.0148414];
+    const coords = [latitude, longitude];
     this.#map = L.map('map').setView(coords, 16);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
