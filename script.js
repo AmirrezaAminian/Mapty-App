@@ -60,7 +60,6 @@ class Cycling extends Workout {
     this.elevationGain = elevationGain;
     this.calcSpeed();
     this._setDesciption();
-
   }
 
   calcSpeed() {
@@ -94,6 +93,7 @@ class App {
     this._getPosition();
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
+    containerWorkouts.addEventListener('click', this._movToPopup.bind(this));
   }
 
   _getPosition() {
@@ -187,9 +187,7 @@ class App {
 
     this._renderWorkout(workout);
 
-      this._hideForm();
-
-
+    this._hideForm();
   }
 
   _renderWorkoutMarker(workout) {
@@ -262,6 +260,26 @@ class App {
     // look at the html before you confused
     form.insertAdjacentHTML('afterend', html);
   }
+
+  _movToPopup(e) {
+    const workoutEL = e.target.closest('.workout');
+    console.log(workoutEL);
+    if (!workoutEL) return;
+
+    const workout = this.#workouts.find(
+      work => work.id === workoutEL.dataset.id
+    );
+    console.log(workout);
+        
+    this.#map.setView(workout.coords , 13 , {
+        animate : true , 
+        pan : {
+            duration : 1
+        }
+    })
+  }
+  
 }
+
 
 const app = new App();
